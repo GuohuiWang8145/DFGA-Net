@@ -101,4 +101,4 @@ dependencies:
       - urllib3==1.26.15
       - wcwidth==0.2.6
       - werkzeug==2.2.3
-prefix: /root/miniconda3/envs/wgh
+prefix: /root/miniconda3/envs/DFGANet

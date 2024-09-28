@@ -44,6 +44,19 @@ datasets=
 │   └── train
 ```
 
+
+## Evaluation
+
+The evaluation scripts used to reproduce the numbers in our paper are given in [eval.sh](eval.sh)
+
+For submission to KITTI, ETH3D online test sets, you can run [submission.sh](submission.sh). The results can be submitted directly.
+
+
+
+## Training
+
+All training scripts for different model variants on different datasets can be found in [train.sh](scripts).
+
 ## License
 Please note that all codes are protected by patents. They can only be used for research purposes. 
 

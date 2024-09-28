@@ -9,9 +9,6 @@ DFGA-Net proposes an efficient and accurate stereo matching approach through a n
 ## Performance
 ![kitti2015](./figs/kitti2015.png)
 
-<<<<<<< HEAD
-![kitti2015](./Figs/kitti2015.png)
-
 ## Installation
 
 run command line as following

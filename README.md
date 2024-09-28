@@ -12,20 +12,14 @@ DFGA-Net proposes an efficient and accurate stereo matching approach through a n
 <<<<<<< HEAD
 ![kitti2015](./Figs/kitti2015.png)
 
-## Environment
-* Ubuntu 16.04 with Nvidia RTX 3090 GPU
-* python==3.11.4
-* Pytorch == 2.0.1
-* Other requirements: `conda env create -f environment.yml`
-=======
 ## Installation
 
 run command line as following
 
 ```shell
    conda env create -f environment.yml
+   conda activate DFGANet
 ```
->>>>>>> 52af5b2f838cd3a73b1ed6c79229df02ad4187d1
 
 ## Datasets
 Download [Scene Flow Datasets](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html), [KITTI 2012](http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=stereo), [KITTI 2015](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=stereo), [ETH3D](https://www.eth3d.net/)

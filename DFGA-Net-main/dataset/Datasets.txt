@@ -1,0 +1,4 @@
+Scene Flow Datasets (Final pass): (https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html)
+KITTI 2012: http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=stereo
+KITTI 2015: http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=stereo
+ETH3D: https://www.eth3d.net/

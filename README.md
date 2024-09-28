@@ -4,10 +4,12 @@ DFGA-Net: Achieving Efficient and High-Accuracy Stereo Matching through Dual-Fea
 ## Introduction
 
 DFGA-Net proposes an efficient and accurate stereo matching approach through a novel Dual-Features Gated Attention Network. It employs a Dual-Features Extractor that integrates Instance Normalization and Batch Normalization to capture both personalized and generalized sample features, addressing environmental variability. Furthermore, DFGA-Net utilizes a Lightweight Transformer architecture with Lightweight Gated Attention Units to efficiently capture long-range dependencies, enhancing feature richness. Experimental results reveal that DFGA-Net attains exceptional efficiency and performance across a variety of datasets, including SceneFlow, KITTI 2012, KITTI 2015, and ETH3D, outperforming accuracy-centric models.
-![main](./Figs/framework.png)
+![main](./figs/framework.png)
 
 ## Performance
+![kitti2015](./figs/kitti2015.png)
 
+<<<<<<< HEAD
 ![kitti2015](./Figs/kitti2015.png)
 
 ## Environment
@@ -15,6 +17,14 @@ DFGA-Net proposes an efficient and accurate stereo matching approach through a n
 * python==3.11.4
 * Pytorch == 2.0.1
 * Other requirements: `conda env create -f environment.yml`
+=======
+## Installation
+
+run command line as following
+
+```shell
+   conda env create -f environment.yml
+```
 >>>>>>> 52af5b2f838cd3a73b1ed6c79229df02ad4187d1
 
 ## Datasets

@@ -1,5 +1,6 @@
 #DFGA-Net original model
 
+## SceneFlow
 #!/usr/bin/env bash
 CHECKPOINT_DIR=output/Pre_Sceneflow && \
 mkdir -p ${CHECKPOINT_DIR} && \
@@ -7,7 +8,7 @@ python main.py \
 --checkpoint_dir ${CHECKPOINT_DIR} \
 --no_resume_optimizer \
 --stage sceneflow  \
---val_dataset things kitti15 \
+--val_dataset things \
 --lr 4e-4 \
 --minlr 1e-4 \
 --num_scales 1 \
@@ -29,6 +30,36 @@ python main.py \
 --save_latest_ckpt_freq 1 \
 --num_epochs 40
 
+## SceneFlow Swin Lightweight Transformer
+#!/usr/bin/env bash
+CHECKPOINT_DIR=output/Pre_Sceneflow && \
+mkdir -p ${CHECKPOINT_DIR} && \
+python main.py \
+--checkpoint_dir ${CHECKPOINT_DIR} \
+--no_resume_optimizer \
+--stage sceneflow  \
+--val_dataset things \
+--lr 4e-4 \
+--minlr 1e-4 \
+--num_scales 1 \
+--batch_size 12 \
+--accum_iter 2 \
+--img_height 288 \
+--img_width 512 \
+--feature_channels 128 \
+--padding_factor 16 \
+--upsample_factor 8 \
+--attn_type swin \
+--attn_splits_list 4 \ 
+--num_transformer_layers 6 \
+--reg_refine 1 \
+--num_reg_refine 3 \
+--patience 10 \
+--summary_freq 50 \
+--val_freq 1 \
+--save_ckpt_freq 1 \
+--save_latest_ckpt_freq 1 \
+--num_epochs 40
 
 #!/usr/bin/env bash
 CHECKPOINT_DIR=output/Ft-KITTImixed && \

@@ -7,9 +7,6 @@ DFGA-Net proposes an efficient and accurate stereo matching approach through a n
 ![main](./figs/framework.png)
 
 ## Performance
-
-![kitti2012](./figs/kitti2012.png)
-
 ![kitti2015](./figs/kitti2015.png)
 
 ## Environment

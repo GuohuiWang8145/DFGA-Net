@@ -4,13 +4,13 @@ DFGA-Net: Achieving Efficient and High-Accuracy Stereo Matching through Dual-Fea
 ## Introduction
 
 DFGA-Net proposes an efficient and accurate stereo matching approach through a novel Dual-Features Gated Attention Network. It employs a Dual-Features Extractor that integrates Instance Normalization and Batch Normalization to capture both personalized and generalized sample features, addressing environmental variability. Furthermore, DFGA-Net utilizes a Lightweight Transformer architecture with Lightweight Gated Attention Units to efficiently capture long-range dependencies, enhancing feature richness. Experimental results reveal that DFGA-Net attains exceptional efficiency and performance across a variety of datasets, including SceneFlow, KITTI 2012, KITTI 2015, and ETH3D, outperforming accuracy-centric models.
-![main](./Figs/framework.png)
+![main](./figs/framework.png)
 
 ## Performance
 
-![kitti2012](./Figs/kitti2012.png)
+![kitti2012](./figs/kitti2012.png)
 
-![kitti2015](./Figs/kitti2015.png)
+![kitti2015](./figs/kitti2015.png)
 
 ## Environment
 * Ubuntu 16.04 with Nvidia RTX 3090 GPU

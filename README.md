@@ -55,7 +55,7 @@ For submission to KITTI, ETH3D online test sets, you can run [submission.sh](sub
 
 ## Training
 
-All training scripts for different model variants on different datasets can be found in [train.sh](scripts).
+All training scripts for different model variants on different datasets can be found in [train.sh](train.sh).
 
 ## License
 Please note that all codes are protected by patents. They can only be used for research purposes. 

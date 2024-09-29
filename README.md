@@ -71,7 +71,7 @@ All training scripts for different model variants on different datasets can be f
 Please note that all codes are protected by patents. They can only be used for research purposes. 
 
 ## Acknowledgements
-Part of the code is adopted from some previous work: [GMStereo](https://github.com/autonomousvision/unimatch). We thank the original authors for their awesome repos. 
+Part of the code is adopted from [GMStereo](https://github.com/autonomousvision/unimatch). We thank the original authors for their awesome repos. 
 
 ## Citation
 If you find this project helpful in your research, welcome to cite the paper. 

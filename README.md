@@ -21,7 +21,7 @@ run command line as following
 ## Datasets
 Download [Scene Flow Datasets](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html), [KITTI 2012](http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=stereo), [KITTI 2015](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=stereo), [ETH3D](https://www.eth3d.net/)
 
-By default the dataloader [datasets.py](data/datasets.py) assumes the datasets are located in folder `datasets` and are organized as follows:
+By default the dataloader [datasets.py](dataloader/datasets.py) assumes the datasets are located in folder `datasets` and are organized as follows:
 
 ```
 datasets=

@@ -23,6 +23,7 @@ from utils.utils import EarlyStopping
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
 
+
 def get_args_parser():
     parser = argparse.ArgumentParser()
 
@@ -162,13 +163,12 @@ def main(args):
 
     # model
     model = DFGANet(feature_channels=args.feature_channels,
-                      num_scales=args.num_scales,
-                      upsample_factor=args.upsample_factor,
-                      num_head=args.num_head,
-                      ffn_dim_expansion=args.ffn_dim_expansion,
-                      num_transformer_layers=args.num_transformer_layers,
-                      reg_refine=args.reg_refine,
-                      task=args.task).to(device)
+                    num_scales=args.num_scales,
+                    upsample_factor=args.upsample_factor,
+                    num_head=args.num_head,
+                    num_transformer_layers=args.num_transformer_layers,
+                    reg_refine=args.reg_refine
+                    ).to(device)
 
     num_params = sum(p.numel() for p in model.parameters())
     print('Number of params:', num_params)
@@ -210,7 +210,7 @@ def main(args):
     if args.submission:
         if 'things' in args.val_dataset:
             create_sceneflow_submission(model_without_ddp,
-                                        dataset=args.val_dataset, 
+                                        dataset=args.val_dataset,
                                         output_path=args.output_path,
                                         padding_factor=args.padding_factor,
                                         attn_type=args.attn_type,
@@ -222,7 +222,7 @@ def main(args):
                                         )
         if 'kitti15' in args.val_dataset or 'kitti12' in args.val_dataset:
             create_kitti_submission(model_without_ddp,
-                                    dataset=args.val_dataset, 
+                                    dataset=args.val_dataset,
                                     output_path=args.output_path,
                                     padding_factor=args.padding_factor,
                                     attn_type=args.attn_type,
@@ -283,7 +283,7 @@ def main(args):
 
         if 'kitti15' in args.val_dataset or 'kitti12' in args.val_dataset:
             results_dict = validate_kitti15(model_without_ddp,
-                                            dataset=args.val_dataset, 
+                                            dataset=args.val_dataset,
                                             padding_factor=args.padding_factor,
                                             inference_size=args.inference_size,
                                             attn_type=args.attn_type,
@@ -356,15 +356,6 @@ def main(args):
                               sampler=None,
                               )
 
-    last_epoch = start_step if args.resume and not args.no_resume_optimizer else -1
-    # lr_scheduler = torch.optim.lr_scheduler.OneCycleLR(
-    #     optimizer, args.lr,
-    #     args.num_epochs,
-    #     pct_start=0.1,
-    #     cycle_momentum=False,
-    #     anneal_strategy='cos',
-    #     last_epoch=last_epoch,
-    # )
     lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
         optimizer, T_max=args.num_epochs, eta_min=args.minlr
     )
@@ -409,7 +400,7 @@ def main(args):
 
             if 'kitti15' in args.val_dataset or 'kitti12' in args.val_dataset:
                 results_dict = validate_kitti15(model_without_ddp,
-                                                dataset=args.val_dataset, 
+                                                dataset=args.val_dataset,
                                                 padding_factor=args.padding_factor,
                                                 inference_size=args.inference_size,
                                                 attn_type=args.attn_type,
@@ -547,8 +538,6 @@ def main(args):
                                    task='stereo',
                                    )['disp_preds']
                 disp_loss = 0
-                total_loss = 0
-                # all_loss = []
 
                 # loss weights
                 loss_weights = [0.9 ** (len(pred_disps) - 1 - power) for power in
@@ -558,15 +547,8 @@ def main(args):
                     pred_disp = pred_disps[k]
                     weight = loss_weights[k]
                     disp_loss += weight * F.smooth_l1_loss(pred_disp[mask], gt_disp[mask],
-                                                    reduction='mean')
-                    # if k == 0:
-                    #     disp_loss += F.smooth_l1_loss(pred_disp[mask], gt_disp[mask],
-                    #                                   reduction='mean')
-                    # else:
-                    #     weight = loss_weights[k - 1]
-                    #     disp_loss += weight * F.l1_loss(pred_disp[mask], gt_disp[mask],
-                    #                                     reduction='mean')
-                    
+                                                           reduction='mean')
+
                 total_loss = disp_loss
 
                 total_loss.backward()
@@ -588,13 +570,15 @@ def main(args):
                     d1 = d1_metric(pred_disp, gt_disp, mask)
                     if ((total_steps + 1) / accum_iter) % args.summary_freq == 0 or total_steps == 0:
                         print('[epoch:%2d]step: %03d \t epe: %.3f \t d1: %0.3f \t total_loss:%.3f' % (epoch + 1,
-                                                                                                      (total_steps + 1) / accum_iter,
+                                                                                                      (
+                                                                                                                  total_steps + 1) / accum_iter,
                                                                                                       epe.item(),
                                                                                                       d1.item(),
                                                                                                       total_loss))
                         with open(log_file, 'a') as f:
                             f.write('[epoch:%2d]step: %03d/%03d \t epe: %.3f \t total_loss:%.3f\n' % (epoch + 1,
-                                                                                                      (total_steps + 1) / accum_iter,
+                                                                                                      (
+                                                                                                                  total_steps + 1) / accum_iter,
                                                                                                       len(train_loader) / accum_iter,
                                                                                                       epe.item(),
                                                                                                       total_loss))

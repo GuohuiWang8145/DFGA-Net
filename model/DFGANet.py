@@ -18,10 +18,8 @@ class DFGANet(nn.Module):
                  feature_channels=128,
                  upsample_factor=8,
                  num_head=1,
-                 ffn_dim_expansion=4,
                  num_transformer_layers=6,
                  reg_refine=False,  # optional local regression refinement
-                 task='disp',
                  ):
         super(DFGANet, self).__init__()
 
@@ -85,18 +83,7 @@ class DFGANet(nn.Module):
     def forward(self, img0, img1,
                 attn_type='Full',
                 attn_splits_list=None,
-                corr_radius_list=None,
-                prop_radius_list=None,
                 num_reg_refine=1,
-                pred_bidir_flow=False,
-                task='flow',
-                intrinsics=None,
-                pose=None,  # relative pose transform
-                min_depth=1. / 0.5,  # inverse depth range
-                max_depth=1. / 10,
-                num_depth_candidates=64,
-                depth_from_argmax=False,
-                pred_bidir_depth=False,
                 **kwargs,
                 ):
 
@@ -106,7 +93,6 @@ class DFGANet(nn.Module):
 
         # context features
         feature0, feature1 = self.extract_feature(img0, img1)
-        # feature0_ori, feature1_ori = feature0, feature1
 
         # geometry information
         geometry0, geometry1 = self.extract_geometry(img0, img1)
@@ -116,13 +102,6 @@ class DFGANet(nn.Module):
 
         feature0, feature1 = feature_add_position(feature0, feature1, 1, self.feature_channels)
         feature0, feature1 = self.GatedAttn(feature0, feature1, False, False, attn_type, attn_splits, False)
-        # feature0, feature1 = self.AFT(feature0, feature1)
-
-        # CNN + Transformer information fusion | channel
-        # geometry0 = self.conv1(torch.cat((feature0, geometry0), 1))
-        # geometry1 = self.conv1(torch.cat((feature1, geometry1), 1))
-        #geometry0 = self.GCFusion(feature0, geometry0)
-        #geometry1 = self.GCFusion(feature1, geometry1)
 
         # correlation and softmax
         disp_pred = global_correlation_softmax_stereo(geometry0, geometry1)[0]
@@ -167,8 +146,6 @@ class DFGANet(nn.Module):
                 # NOTE: reverse disp, disparity is positive
                 displace = torch.cat((-disp, zeros), dim=1)  # [B, 2, H, W]
                 correlation = local_correlation_with_disp(
-                    #geometry0, geometry1,
-                    # feature0_ori, feature1_ori,
                     feature0, feature1, 
                     disp=displace,
                     local_radius=4,

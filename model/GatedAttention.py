@@ -58,7 +58,7 @@ class GatedAttentionUnit(nn.Module):
             K = K.view(b, h, w, c * self.nHead)
             V = V.view(b, h, w, c * self.nHead)
 
-            if with_shift:
+            if with_shift and is_self_attn:
                 assert mask is not None  # compute once
                 shift_size_h = window_size_h // 2
                 shift_size_w = window_size_w // 2
@@ -101,7 +101,7 @@ class GatedAttentionUnit(nn.Module):
             else:
                 attention_scores = torch.matmul(Q, K.permute(0, 1, 3, 2)) / (
                         self.dim * seq_len)  # [B, H, W, W]
-                if mask is not None:
+                if mask is not None and "swin" not in attn_type:
                     attention_scores[~mask] = -1e9
                 attention_scores = self.softmax(attention_scores)
                 gated_attention_output = torch.matmul(attention_scores, V).view(b, -1, c)  # [B, H*W, C]
@@ -231,7 +231,7 @@ class AttnBlock(nn.Module):
         # source = self.GAU(source, source)
 
         # cross-attn
-        source, attn_out = self.GAU(source, target, h, w, mask, "full")
+        source, attn_out = self.GAU(source, target, h, w, mask, "swin")
 
         # source = self.GAU(source, target, h, w)
 
